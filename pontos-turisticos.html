@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pontos Turísticos - Turismo em Guaratuba</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="pontos-turisticos">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">📍</div>
+                    <div class="logo-text">
+                        <h1>Turismo em Guaratuba</h1>
+                        <p>Paraná - Brasil</p>
+                    </div>
+                </a>
+
+                <nav class="nav">
+                    <a href="praias.html">Praias</a>
+                    <a href="pontos-turisticos.html">Pontos Turísticos</a>
+                    <a href="gastronomia.html">Gastronomia</a>
+                </nav>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+        <nav class="mobile-nav">
+            <a href="praias.html">Praias</a>
+            <a href="pontos-turisticos.html">Pontos Turísticos</a>
+            <a href="gastronomia.html">Gastronomia</a>
+        </nav>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>
+                Pontos Turísticos de
+                <span class="gradient-text">Guaratuba</span>
+            </h1>
+            <p>
+                Explore os principais marcos históricos, mirantes e atrações naturais que fazem de Guaratuba um destino único no litoral paranaense.
+            </p>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="section" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <div class="container">
+            <div class="filters" id="categoryFilters">
+                <button class="filter-btn active" onclick="setFilter('Todos', this)">Todos</button>
+                <button class="filter-btn" onclick="setFilter('Mirante', this)">Mirante</button>
+                <button class="filter-btn" onclick="setFilter('Histórico', this)">Histórico</button>
+                <button class="filter-btn" onclick="setFilter('Natural', this)">Natural</button>
+                <button class="filter-btn" onclick="setFilter('Cultural', this)">Cultural</button>
+                <button class="filter-btn" onclick="setFilter('Transporte Histórico', this)">Transporte Histórico</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tourist Spots Grid -->
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="grid grid-3" id="spotsGrid">
+                <!-- Tourist spots will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Tourist Spot Details -->
+    <div class="modal" id="spotModal">
+        <div class="modal-content">
+            <button class="modal-close">✕</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="logo-icon" style="width: 2rem; height: 2rem;">📍</div>
+                        <h4>Turismo Guaratuba</h4>
+                    </div>
+                    <p>Descubra as belezas naturais de Guaratuba, onde o mar encontra a mata atlântica em perfeita harmonia.</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Contato</h5>
+                    <div class="footer-contact">📞 <span>(41) 99999-9999</span></div>
+                    <div class="footer-contact">✉️ <span>contato@turismoguaratuba.com.br</span></div>
+                    <div class="footer-contact">📍 <span>Centro, Guaratuba - PR</span></div>
+                </div>
+                <div class="footer-section">
+                    <h5>Redes Sociais</h5>
+                    <div class="footer-social">
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="Facebook">📘</a>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.875rem; color: #94a3b8;">
+                        Siga-nos para acompanhar as novidades e dicas de turismo em Guaratuba.
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Turismo Guaratuba. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function initPontosTuristicosPage() {
+            filterTouristSpots();
+        }
+
+        function filterTouristSpots() {
+            const filteredSpots = selectedCategory === 'Todos' 
+                ? touristSpots 
+                : touristSpots.filter(spot => spot.category === selectedCategory);
+            
+            const grid = document.getElementById('spotsGrid');
+            grid.innerHTML = '';
+            
+            filteredSpots.forEach(spot => {
+                const card = document.createElement('div');
+                card.className = 'card fade-in';
+                card.innerHTML = `
+                    <div style="position: relative; overflow: hidden;">
+                        <img src="${spot.image}" alt="${spot.name}" class="card-image">
+                        <div style="position: absolute; top: 1rem; left: 1rem;">
+                            <span class="badge badge-primary">
+                                ${getCategoryIcon(spot.category)} ${spot.category}
+                            </span>
+                        </div>
+                        <div style="position: absolute; top: 1rem; right: 1rem;">
+                            <span class="badge ${getDifficultyColor(spot.difficulty)}">${spot.difficulty}</span>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <h3 class="card-title">${spot.name}</h3>
+                        <p class="card-description">${spot.description}</p>
+
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem;">
+                                🕒 <span style="font-weight: 500; margin-left: 0.5rem;">Tempo de visita:</span>
+                                <span style="margin-left: 0.25rem;">${spot.visitTime}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; font-size: 0.875rem; color: #64748b;">
+                                📷 <span style="font-weight: 500; margin-left: 0.5rem;">Melhor horário:</span>
+                                <span style="margin-left: 0.25rem;">${spot.bestTime}</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <h4 style="font-size: 0.875rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Destaques:</h4>
+                            <div class="tags-container">
+                                ${spot.highlights.slice(0, 3).map(highlight => `<span class="tag">${highlight}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-full" onclick="openSpotModal(${spot.id})" style="background: linear-gradient(to right, #10b981, #14b8a6);">
+                            📍 Ver Detalhes
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function getCategoryIcon(category) {
+            const icons = {
+                'Mirante': '🏔️',
+                'Histórico': '🏛️',
+                'Natural': '🌿',
+                'Cultural': '🎭',
+                'Transporte Histórico': '⛵'
+            };
+            return icons[category] || '📍';
+        }
+
+        function openSpotModal(spotId) {
+            const spot = touristSpots.find(s => s.id === spotId);
+            if (!spot) return;
+
+            const modal = document.getElementById('spotModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            modalTitle.innerHTML = `${getCategoryIcon(spot.category)} ${spot.name}`;
+            
+            modalBody.innerHTML = `
+                <img src="${spot.image}" alt="${spot.name}" style="width: 100%; height: 16rem; object-fit: cover; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <span class="badge badge-primary">${spot.category}</span>
+                    <span class="badge ${getDifficultyColor(spot.difficulty)}">${spot.difficulty}</span>
+                </div>
+
+                <p style="color: #64748b; line-height: 1.6; margin-bottom: 1.5rem;">${spot.description}</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <div style="display: flex; align-items: center; font-size: 0.875rem; margin-bottom: 0.5rem;">
+                            🕒 <span style="font-weight: 500; margin-left: 0.5rem;">Tempo de visita:</span>
+                            <span style="margin-left: 0.25rem;">${spot.visitTime}</span>
+                        </div>
+                        <div style="display: flex; align-items: center; font-size: 0.875rem;">
+                            📷 <span style="font-weight: 500; margin-left: 0.5rem;">Melhor horário:</span>
+                            <span style="margin-left: 0.25rem;">${spot.bestTime}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Destaques:</h4>
+                    <div class="tags-container">
+                        ${spot.highlights.map(highlight => `<span class="tag">${highlight}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="coordinates-container" style="margin-bottom: 1.5rem;">
+                    <h4 style="font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Dicas importantes:</h4>
+                    <p style="font-size: 0.875rem; color: #64748b;">${spot.tips}</p>
+                </div>
+
+                <div class="coordinates-container">
+                    <h4 style="font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Coordenadas:</h4>
+                    <div class="coordinates-display">
+                        <span class="coordinates-text">${spot.coordinates.lat}, ${spot.coordinates.lng}</span>
+                        <button class="btn btn-outline btn-sm" onclick="copyCoordinates(${spot.coordinates.lat}, ${spot.coordinates.lng})">
+                            📋
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+                    <button class="btn btn-primary" onclick="openInGoogleMaps(${spot.coordinates.lat}, ${spot.coordinates.lng})" style="flex: 1; background: #10b981;">
+                        🔗 Ver no Google Maps
+                    </button>
+                </div>
+            `;
+
+            openModal('spotModal');
+        }
+    </script>
+</body>
+</html>

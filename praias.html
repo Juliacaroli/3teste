@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praias - Turismo em Guaratuba</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="praias">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">📍</div>
+                    <div class="logo-text">
+                        <h1>Turismo em Guaratuba</h1>
+                        <p>Paraná - Brasil</p>
+                    </div>
+                </a>
+
+                <nav class="nav">
+                    <a href="praias.html">Praias</a>
+                    <a href="pontos-turisticos.html">Pontos Turísticos</a>
+                    <a href="gastronomia.html">Gastronomia</a>
+                </nav>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+        <nav class="mobile-nav">
+            <a href="praias.html">Praias</a>
+            <a href="pontos-turisticos.html">Pontos Turísticos</a>
+            <a href="gastronomia.html">Gastronomia</a>
+        </nav>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>
+                Praias de
+                <span class="gradient-text">Guaratuba</span>
+            </h1>
+            <p>
+                Descubra as mais belas praias do litoral paranaense, cada uma com sua personalidade única e belezas naturais incomparáveis.
+            </p>
+        </div>
+    </section>
+
+    <!-- Beaches Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-1" id="beachesGrid" style="gap: 2rem;">
+                <!-- Beaches will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Beach Guide Section -->
+    <section class="section bg-white">
+        <div class="container text-center">
+            <h3 class="section-title">Guia das Praias</h3>
+            <p class="section-description">
+                Informações importantes para aproveitar ao máximo sua visita às praias de Guaratuba.
+            </p>
+            <div class="grid grid-3">
+                <div class="info-card">
+                    <div class="info-icon" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">🌊</div>
+                    <h4 class="info-title">Condições do Mar</h4>
+                    <p class="info-description">
+                        Verifique sempre as condições do mar e respeite as orientações dos salva-vidas para sua segurança.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon" style="background: linear-gradient(135deg, #eab308, #f97316);">☀️</div>
+                    <h4 class="info-title">Proteção Solar</h4>
+                    <p class="info-description">
+                        Use protetor solar, chapéu e óculos escuros. O sol do litoral pode ser mais intenso que o esperado.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon" style="background: linear-gradient(135deg, #10b981, #14b8a6);">🏖️</div>
+                    <h4 class="info-title">Infraestrutura</h4>
+                    <p class="info-description">
+                        Algumas praias possuem melhor infraestrutura que outras. Planeje-se de acordo com suas necessidades.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="logo-icon" style="width: 2rem; height: 2rem;">📍</div>
+                        <h4>Turismo Guaratuba</h4>
+                    </div>
+                    <p>Descubra as belezas naturais de Guaratuba, onde o mar encontra a mata atlântica em perfeita harmonia.</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Contato</h5>
+                    <div class="footer-contact">📞 <span>(41) 99999-9999</span></div>
+                    <div class="footer-contact">✉️ <span>contato@turismoguaratuba.com.br</span></div>
+                    <div class="footer-contact">📍 <span>Centro, Guaratuba - PR</span></div>
+                </div>
+                <div class="footer-section">
+                    <h5>Redes Sociais</h5>
+                    <div class="footer-social">
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="Facebook">📘</a>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.875rem; color: #94a3b8;">
+                        Siga-nos para acompanhar as novidades e dicas de turismo em Guaratuba.
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Turismo Guaratuba. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function initPraiasPage() {
+            loadBeaches();
+        }
+
+        function loadBeaches() {
+            const grid = document.getElementById('beachesGrid');
+            grid.innerHTML = '';
+            
+            beaches.forEach(beach => {
+                const card = document.createElement('div');
+                card.className = 'card fade-in';
+                card.innerHTML = `
+                    <div style="display: flex; flex-direction: column; min-height: 400px;">
+                        <div style="display: flex; flex-direction: column; flex: 1;">
+                            <div style="position: relative; overflow: hidden; flex: 1;">
+                                <img src="${beach.image}" alt="${beach.name}" class="card-image" style="height: 16rem;">
+                                <div style="position: absolute; top: 1rem; left: 1rem; display: flex; gap: 0.5rem;">
+                                    <span class="badge ${getDifficultyColor(beach.difficulty)}">${beach.difficulty}</span>
+                                    <span class="badge ${getCrowdColor(beach.crowdLevel)}">
+                                        👥 ${beach.crowdLevel}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card-content" style="flex: 1; display: flex; flex-direction: column;">
+                                <h3 class="card-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;">${beach.name}</h3>
+                                <p class="card-description" style="margin-bottom: 1rem; flex: 1;">${beach.description}</p>
+
+                                <div style="margin-bottom: 1rem;">
+                                    <div style="display: flex; align-items: center; font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem;">
+                                        ☀️ <span style="font-weight: 500; margin-left: 0.5rem;">Melhor horário:</span>
+                                        <span style="margin-left: 0.25rem;">${beach.bestTime}</span>
+                                    </div>
+                                </div>
+
+                                <div style="margin-bottom: 1rem;">
+                                    <h4 style="font-size: 0.875rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Características:</h4>
+                                    <div class="tags-container">
+                                        ${beach.features.map(feature => `<span class="tag">${feature}</span>`).join('')}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 style="font-size: 0.875rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Atividades:</h4>
+                                    <div class="tags-container">
+                                        ${beach.activities.map(activity => `<span class="badge badge-primary" style="font-size: 0.75rem;">${activity}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
